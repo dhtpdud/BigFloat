@@ -384,7 +384,16 @@ namespace System.Numerics
             }
 
             var r = result + nf.NumberDecimalSeparator + new string(sb.ToString().Reverse().ToArray());
-            return trailingZeros ? r : r.TrimEnd('0');
+            var trans = trailingZeros ? r : r.TrimEnd('0');
+
+            
+            if (trans.Contains('-'))
+            {
+                trans = trans.Replace("-","");
+                trans = trans.Insert(0, "-");
+            }
+            
+            return trans;
         }
 
         public string ToMixString()
